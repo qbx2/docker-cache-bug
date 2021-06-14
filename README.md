@@ -1,6 +1,6 @@
 # Docker won't detect changes in hard links
 
-In this environment, `tar -ch .` will create `mod.txt` as normal file and `modify_me.txt` as hard link. It can be verified using `python -c "import tarfile; print(tarfile.getmember('./modify_me.txt').islnk())"`. Then, docker does not detect any changes in `modify_me.txt`. Workaround to this is to disable hard links using `--hard-dereference` for tar.
+In this environment, `tar -ch .` will create `mod.txt` as normal file and `modify_me.txt` as hard link. It can be verified using `python -c "import tarfile; print(tarfile.open('/tmp/test.tgz').getmember('./modify_me.txt').islnk())"`. Then, docker does not detect any changes in `modify_me.txt` and cache may not be invalidated and get broken. Workaround to this is to disable hard links using `--hard-dereference` for tar.
 
 ```
 $ ./build.sh                                          
