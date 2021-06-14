@@ -1,2 +1,2 @@
 #!/bin/sh
-tar -czh . | docker build - $@
+tar -ch --exclude .git . | docker build - $@
